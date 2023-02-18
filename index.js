@@ -1,8 +1,25 @@
 const app = require('express')()
+require("dotenv").config()
+const cors = require('cors')
+const {graphqlHTTP} = require("express-graphql")
+const { connection } = require('./config')
+const schema = require("./schema")
+app.use(
+    "/graphql", 
+    graphqlHTTP({
+        schema: schema,
+        graphiql: true
+    })
+)
+//mongoDB connection
+connection()
 
-const PORT = 4000 || 4001 
+app.use(cors({
+    origin: "*",
+}))
 
 
+const PORT = process.env.PORT || 4001 
 app.listen(PORT, (req, res)=>{
-    console.log(`Backend is listening on port: ${PORT}`)
+    console.log(`Server is responding on port: ${PORT}`)
 })
