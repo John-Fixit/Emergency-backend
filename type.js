@@ -1,5 +1,7 @@
 const { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLBoolean } = require("graphql");
 
+
+//organization graphql type
 const organizationType = new GraphQLObjectType({
     name: "organization_type",
     fields: () => ({
@@ -13,6 +15,8 @@ const organizationType = new GraphQLObjectType({
     }),
   });
 
+
+//message graphql type
   const messageType = new GraphQLObjectType({
     name: "message_type",
     fields: () => ({

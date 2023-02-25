@@ -7,7 +7,7 @@ const {
   GraphQLBoolean,
   GraphQLSchema,
   GraphQLID,
-} = require("graphql");
+} = require("graphql");``
 const { messageModel } = require("./Models/messagesModel");
 const { orgModel } = require("./Models/orgModel");
 const { organizationType, messageType } = require("./type");
@@ -136,31 +136,33 @@ const _mutation = new GraphQLObjectType({
         voice: { type: GraphQLString },
         video: { type: GraphQLString },
         location: { type: new GraphQLNonNull(GraphQLString) },
-        category: {
-          type: new GraphQLNonNull(
-            new GraphQLEnumType({
-              name: "msg_category",
-              values: {
-                vehicleAccident: { value: "Vehicle Accident" },
-                fireAccident: { value: "Fire Accident" },
-                robbery: { value: "Robbery" },
-                riot: { value: "Riot" },
-              },
-            })
-          ),
-          default: "",
-        },
+        // category: {
+        //   type: new GraphQLNonNull(
+        //     new GraphQLEnumType({
+        //       name: "msg_category",
+        //       values: {
+        //         vehicleAccident: { value: "Vehicle Accident" },
+        //         fireAccident: { value: "Fire Accident" },
+        //         robbery: { value: "Robbery" },
+        //         riot: { value: "Riot" },
+        //       },
+        //     })
+        //   ),
+        //   default: "",
+        // },
       },
       resolve(parent, args) {
-        const { text, voice, video, category, location } = args;
+        console.log(args)
+        // const { text, voice, video, category, location } = args;
+        const { text, voice, video, location } = args;
         // if(!!voice){ // upload the voice record }
         // if(!!video){// upload video}
         let newMsg = messageModel.create({
-          category,
+          // category,
           message: { text, voice, video },
           location,
         }).then((res)=>{
-            const {category, message, location} = res
+            const {message, location} = res
             return {response: "Message sent", suggestedMeasure: "I will tell you what to do", category, message, location}
         }).catch((err)=>{
             return {response: err.message, status: false}

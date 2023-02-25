@@ -8,13 +8,16 @@ const messageSchema = new mongoose.Schema({
         message: {
             text: {
                 type: String,
+                default: ""
             },
             voice: {
                 type: String,
+                default: ""
             },
             video: {
                 type: String,
-            }
+                default: ""
+            },
         },
         location: {
             type: String,

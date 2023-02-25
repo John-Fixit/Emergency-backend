@@ -15,7 +15,7 @@ const orgSchema = new mongoose.Schema({
         type: String,
         require: true
     }
-})
+}, {timestamps: true})
 
 const orgModel = mongoose.model("Organization_tb", orgSchema)
 
