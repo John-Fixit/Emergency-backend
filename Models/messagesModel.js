@@ -10,7 +10,7 @@ const messageSchema = new mongoose.Schema({
                 type: String,
                 default: ""
             },
-            voice: {
+            audio: {
                 type: String,
                 default: ""
             },

@@ -1,14 +1,42 @@
 const { messageModel } = require("../../Models/messagesModel");
+const { uploadAudio } = require("../FileUpload/audio");
+
 
 module.exports.sendMsg=(req, res)=>{
-    const {category, text, voice, video, location} = req.body;
+    const {category, text, audioFile, video, location} = req.body;
+    
+    if(!!audioFile){
+        uploadAudio(audioFile).then((audioUploadRes)=>{
+            if(audioUploadRes === 'ENOTFOUND'){
+                res.status(500).json({message: "Network error, please check your connection", success: false})
+            }
+            else{
+                saveMsg({category, text, audioUploadRes, video, location}).then((saveRes)=>{
+                    res.status(saveRes.status).json({message: saveRes.message, success: saveRes.success})
+                })
+            }
+            
+        }).catch((err)=>{
+            res.status(500).json({message: `${err.message}, please check your connection`, success: false})
+        })
+    }
+    else{
+        saveMsg({category, text, video, location}).then((saveRes)=>{
+            res.status(saveRes.status).json({message: saveRes.message, success: saveRes.success})
+        })
+    }
+    
+    
+}
 
-    messageModel.create({category, message: {text, voice, video}, location}).then((data)=>{
-        console.log(data)
-        res.status(200).json({message: "Your Organization has been added successfully", success: true});
+
+const saveMsg=(data)=>{
+    const {category, text, audioUploadRes, video, location} = data
+    return messageModel.create({category, message: {text, audio:audioUploadRes, video}, location}).then((data)=>{
+        return {message: "Message sent", success: true, suggestedMeasure: "This will be writing according to the cateory of the emergency", status: 200}
     }).catch((err)=>{
-        res.status(500).json({message: err.message, success: false});
+        return {message: err.message, success: false, status: 500}
     })
-
+    
 }
 
