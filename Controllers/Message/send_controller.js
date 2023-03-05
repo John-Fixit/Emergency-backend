@@ -1,36 +1,36 @@
 const { messageModel } = require("../../Models/messagesModel");
-const { uploadAudio } = require("../FileUpload/audio");
+const { uploadAudio } = require("../FileUpload/uploadFile");
 
 
 module.exports.sendMsg=(req, res)=>{
     const {category, text, audioFile, videoFile, location} = req.body;
     
-    // if(!!audioFile){
-    //     uploadAudio(audioFile).then((audioUploadRes)=>{
-    //         if(audioUploadRes === 'ENOTFOUND'){
-    //             res.status(500).json({message: "Network error, please check your connection", success: false})
-    //         }
-    //         else{
-    //             saveMsg({category, text, audioUploadRes, video, location}).then((saveRes)=>{
-    //                 res.status(saveRes.status).json({message: saveRes.message, success: saveRes.success})
-    //             })
-    //         }
+    if(!!audioFile){
+        uploadAudio(audioFile).then((audioUploadRes)=>{
+            if(audioUploadRes === 'ENOTFOUND'){
+                res.status(500).json({message: "Network error, please check your connection", success: false})
+            }
+            else{
+                // saveMsg({category, text, audioUploadRes, video, location}).then((saveRes)=>{
+                //     res.status(saveRes.status).json({message: saveRes.message, success: saveRes.success})
+                // })
+            }
             
-    //     }).catch((err)=>{
-    //         res.status(500).json({message: `${err.message}, please check your connection`, success: false})
-    //     })
-    // }
+        })   
+    .catch((err)=>{
+            res.status(500).json({message: `${err.message}, please check your connection`, success: false})
+        })
+    }
     if(!!videoFile){
-             uploadAudio(videoFile).then((uRes)=>{
-                console.log(uRes)
-            // if(audioUploadRes === 'ENOTFOUND'){
-            //     res.status(500).json({message: "Network error, please check your connection", success: false})
-            // }
-            // else{
-            //     saveMsg({category, text, audioUploadRes, video, location}).then((saveRes)=>{
-            //         res.status(saveRes.status).json({message: saveRes.message, success: saveRes.success})
-            //     })
-            // }
+             uploadAudio(videoFile).then((videoUploadRes)=>{  
+            if(videoUploadRes === 'ENOTFOUND'){
+                res.status(500).json({message: "Network error, please check your connection", success: false})
+            }
+            else{
+                // saveMsg({category, text, audioUploadRes, video, location}).then((saveRes)=>{
+                //     res.status(saveRes.status).json({message: saveRes.message, success: saveRes.success})
+                // })
+            }
             
         }).catch((err)=>{
             res.status(500).json({message: `${err.message}, please check your connection`, success: false})
