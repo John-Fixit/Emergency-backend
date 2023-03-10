@@ -2,7 +2,7 @@ const { cloudinaryConfig } = require("../../CloudinaryConfig")
 cloudinaryConfig()
 const cloudinary = require("cloudinary").v2;
 let timeStamp = new Date().getTime();
-module.exports.uploadaFile=(file)=>{
+module.exports.uploadAFile=(file)=>{
     let fileForm
     if(!!file){
        fileForm = file.split(";")[0].split(":")[1].split("/")[0]
@@ -13,7 +13,7 @@ module.exports.uploadaFile=(file)=>{
         return err.error.code
     })
 }
-module.exports.uploadvFile=(file)=>{
+module.exports.uploadVFile=(file)=>{
     let fileForm
     if(!!file){
        fileForm = file.split(";")[0].split(":")[1].split("/")[0]
