@@ -30,21 +30,28 @@ let server = app.listen(PORT, (req, res) => {
 const io = socket(server, { cors: { origin: "*" } });
 let connectedOrgs = [];
 io.on("connection", (socket) => {
-//   console.log(`user with id : ${socket.id} is connected`);
+  console.log("user connected with id: "+ socket.id);
+  socket.on('signIn', (data)=>{
+    console.log(data)
+    socket.join(data.category);
+    // connectedOrgs.push(data);
+  })
 
-//   socket.on('newOrg', (data)=>{
-//     orgs.push(data);
-//   })
+  socket.on('signOut', (data)=>{
+     connectedOrgs = connectedOrgs.filter((org)=>org.id != data.id)
+  })
 
-//   socket.on ("msg", async(data) => {
-//     socket.emit("msgResponse", data);
-//     let validOrg = connectedOrgs.filter((orgCat)=> orgCat.category == data.category)
-//     validOrg.map((org)=>{
-//         socket.broadcast.to(org.socketID).emit('msgResponse', data)
-//     })
-//   });
+  socket.on("sendMsg", async(data) => {
+     socket.to(data.category).emit('msgResponse', data)
+    
+    // let validOrg = connectedOrgs.filter((orgCat)=> orgCat.category == data.category)
+    // console.log(validOrg);
+    //   validOrg.map((org)=>{
+    //       socket.broadcast.to(org.socketID).emit('msgResponse', data)
+    //   })
+  });
 
-//   socket.on("disconnect", () => {
-//     console.log(`user disconnected`);
-//   });
+  socket.on("disconnect", () => {
+    console.log(`user disconnected`);
+  });
 });
