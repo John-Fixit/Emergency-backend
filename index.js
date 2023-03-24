@@ -42,13 +42,7 @@ io.on("connection", (socket) => {
   })
 
   socket.on("sendMsg", async(data) => {
-     socket.to(data.category).emit('msgResponse', data)
-    
-    // let validOrg = connectedOrgs.filter((orgCat)=> orgCat.category == data.category)
-    // console.log(validOrg);
-    //   validOrg.map((org)=>{
-    //       socket.broadcast.to(org.socketID).emit('msgResponse', data)
-    //   })
+     socket.broadcast.to(data.category).emit('msgResponse', data)
   });
 
   socket.on("disconnect", () => {
