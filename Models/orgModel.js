@@ -1,4 +1,5 @@
 const {default: mongoose } = require('mongoose')
+const bcrypt = require('bcryptjs');
 const orgSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -16,8 +17,34 @@ const orgSchema = new mongoose.Schema({
     category: {
         type: String,
         require: true
+    },
+    password: {
+        type: String,
+        require: true
     }
 }, {timestamps: true})
+
+orgSchema.pre('save', function(next){
+    bcrypt.hash(this.password, 10, (err, hashedPassword)=>{
+        if(err){
+            console.log('Unexpected error occur');
+        }
+        else{
+            this.password = hashedPassword;
+            next();
+        }
+    })
+})
+orgSchema.methods.validatePassword = function(password, callback){
+    bcrypt.compare(password, this.password, (err, same)=>{
+        if(!err){
+            callback(err, same);
+        }
+        else{
+            next();
+        }
+    })
+}
 
 const orgModel = mongoose.model("Organization_tb", orgSchema)
 

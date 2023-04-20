@@ -32,7 +32,6 @@ let connectedOrgs = [];
 io.on("connection", (socket) => {
   console.log("user connected with id: "+ socket.id);
   socket.on('signIn', (data)=>{
-    console.log(data)
     socket.join(data.category);
     // connectedOrgs.push(data);
   })
