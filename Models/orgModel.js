@@ -35,16 +35,6 @@ orgSchema.pre('save', function(next){
         }
     })
 })
-orgSchema.methods.validatePassword = function(password, callback){
-    bcrypt.compare(password, this.password, (err, same)=>{
-        if(!err){
-            callback(err, same);
-        }
-        else{
-            next();
-        }
-    })
-}
 
 const orgModel = mongoose.model("Organization_tb", orgSchema)
 
