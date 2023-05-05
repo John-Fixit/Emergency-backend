@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 require("dotenv").config()
 
-URI = process.env.DEV_URI
+URI = process.env.PROD_URI
 mongoose.set("strictQuery", false)
 const connection=()=> mongoose.connect(URI, (err, conn_data)=>{
     err?console.log(`Mongoose not connect`): console.log(`Mongoose connected successfully`)  
