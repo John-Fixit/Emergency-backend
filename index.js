@@ -15,7 +15,6 @@ app.use(cors({ origin: "*" }));
 app.get("/", function (req, res) {
   res.status(200).json({ message: "Hello world", status: true });
 });
-
 app.use("/org", orgRoute);
 app.use("/msg", messageRouter);
 //mongoDB connection
@@ -35,14 +34,13 @@ io.on("connection", (socket) => {
     socket.join(data.category);
     // connectedOrgs.push(data);
   })
-
+  socket.on("sendMsg", async(data) => {
+     socket.broadcast.to(data.category).emit('msgResponse', data)
+  });
   socket.on('signOut', (data)=>{
      connectedOrgs = connectedOrgs.filter((org)=>org.id != data.id)
   })
 
-  socket.on("sendMsg", async(data) => {
-     socket.broadcast.to(data.category).emit('msgResponse', data)
-  });
 
   socket.on("disconnect", () => {
     console.log(`user disconnected`);

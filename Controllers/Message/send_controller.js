@@ -2,10 +2,9 @@ const { messageModel } = require("../../Models/messagesModel");
 const { uploadVFile, uploadAFile } = require("../FileUpload/uploadFile");
 
 module.exports.sendMsg = async (req, res) => {
-  const { category, text, audioFile, videoFile, location } = req.body;
-
+  const { category, text, audioFile, videoFile, location} = req.body;
   if (!!audioFile || !!videoFile) {
-    let details = { category, text, location, audio: "", video: "" };
+    let details = { category, text, location, audio: "", video: ""};
     let isError;
     await uploadAFile(audioFile).then((audioRes) => {
         audioRes === "ENOTFOUND"? isError = true: "";
@@ -28,22 +27,23 @@ module.exports.sendMsg = async (req, res) => {
 
   }
   else {
-    saveMsg({ category, text, location }).then((saveRes) => {
+    saveMsg({ category, text, location,  }).then((saveRes) => {
       res
         .status(saveRes.status)
-        .json({ message: saveRes.message, success: saveRes.success });
+        .json({ message: saveRes.message, success: saveRes.success, data: saveRes.data });
     });
   }
 };
 
 const saveMsg = (data) => {
-  const { category, text, audio, video, location } = data;
+  const { category, text, audio, video, location,  } = data;
   return messageModel
-    .create({ category, message: { text, audio, video }, location })
-    .then((data) => {
+  .create({ category, message: { text, audio, video }, location})
+  .then((data) => {
       return {
         message: "Message sent",
         success: true,
+        data,
         suggestedMeasure:
           "This will be writing according to the cateory of the emergency",
         status: 200,

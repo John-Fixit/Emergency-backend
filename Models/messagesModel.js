@@ -1,4 +1,4 @@
-const {default: mongoose} = require("mongoose")
+const {default: mongoose, models} = require("mongoose")
 
 const messageSchema = new mongoose.Schema({
         category: {
@@ -22,7 +22,7 @@ const messageSchema = new mongoose.Schema({
         location: {
             type: String,
             require: true
-        }
+        },
 },
 { timestamps: true }
 )
