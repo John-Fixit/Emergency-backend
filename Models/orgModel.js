@@ -12,7 +12,20 @@ const orgSchema = new mongoose.Schema({
         unique: true
     },
     description: {
-        type: String
+        type: String,
+        default: ''
+    },
+    location: {
+        type: String,
+        default: ''
+    },
+    mobile: {
+        type: Number,
+        default: ''
+    },
+    websiteLink: {
+        type: String,
+        default: ''
     },
     category: {
         type: String,

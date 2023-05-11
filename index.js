@@ -7,6 +7,7 @@ const { orgRoute } = require("./Routes/Organization/orgRoute");
 const bodyParser = require("body-parser");
 const { json } = require("express");
 const socket = require("socket.io");
+const { respondRouter } = require("./Routes/Message/respondRoute");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(json({ limit: "100mb" }));
@@ -17,6 +18,7 @@ app.get("/", function (req, res) {
 });
 app.use("/org", orgRoute);
 app.use("/msg", messageRouter);
+app.use("/respond", respondRouter)
 //mongoDB connection
 connection();
 
