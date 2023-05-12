@@ -40,6 +40,9 @@ const respondedSchema = new mongoose.Schema(
         comment: {
             type: String
         },
+        messageCategory: {
+            type: String
+        },
         responderOrgId: {
             type: mongoose.Schema.Types.ObjectId
         }
