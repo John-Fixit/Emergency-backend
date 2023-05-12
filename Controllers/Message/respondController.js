@@ -3,12 +3,6 @@ const HTTPRESPONSE = require('http-status-codes');
 module.exports.getRespond=(req, res)=>{
     const category = req.params.category
     respondedModel.find({messageCategory: category}, (err, data)=>{
-        // if(err){
-        //     res.status(HTTPRESPONSE.StatusCodes.INTERNAL_SERVER_ERROR).json({message: 'Unexpected error! please check your connection', success: false})
-        // }else{
-        //     console.log(data);
-
-        // }
         err? res.status(HTTPRESPONSE.StatusCodes.INTERNAL_SERVER_ERROR).json({message: 'Unexpected error! please check your connection', success: false}):
         res.status(HTTPRESPONSE.StatusCodes.OK).json({message: 'successfull', data, success: true})
     })
@@ -24,5 +18,16 @@ module.exports.sendRespond=(req, res)=>{
                     res.status(HTTPRESPONSE.StatusCodes.INTERNAL_SERVER_ERROR).json({message: 'Unexpected Error occurred, please check your connection!', success: false}):
                 res.status(HTTPRESPONSE.StatusCodes.OK).send({message: 'Successfull', success: true})
             })
+    })
+}
+
+module.exports.getMsgComments=(req, res)=>{
+    const {msgId} = req.params;
+    respondedModel.find({messageId: msgId}, (err, result)=>{
+        if(err){
+            res.status(HTTPRESPONSE.StatusCodes.INTERNAL_SERVER_ERROR).json({message: 'Unexpected error, please check your connection', success: false})
+        }else{
+            res.status(HTTPRESPONSE.StatusCodes.OK).json({message: 'successfull', comments: result, success: true})
+        }
     })
 }
