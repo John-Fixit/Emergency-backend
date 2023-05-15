@@ -7,7 +7,8 @@ module.exports.uploadAFile=(file)=>{
     if(!!file){
        fileForm = file.split(";")[0].split(":")[1].split("/")[0]
     }
-    return cloudinary.uploader.upload(file, {folder: `emergency_system/${fileForm}_files/`, public_id: timeStamp, resource_type: "auto"}).then((res)=>{
+    return cloudinary.uploader.upload(file, {folder: `emergency_system/${fileForm}_files/`, public_id: timeStamp, resource_type: "raw"}).then((res)=>{
+        console.log(res);
         return {fileForm, url: res.secure_url}
     }).catch((err)=>{
         return err.error.code

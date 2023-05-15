@@ -7,7 +7,6 @@ module.exports.sendMsg = async (req, res) => {
     let details = { category, text, location, audio: "", video: ""};
     let isError;
     await uploadAFile(audioFile).then((audioRes) => {
-      console.log(audioRes)
         audioRes === "ENOTFOUND"? isError = true: "";
       details.audio = audioRes.url;
     });
