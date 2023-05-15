@@ -7,6 +7,7 @@ module.exports.sendMsg = async (req, res) => {
     let details = { category, text, location, audio: "", video: ""};
     let isError;
     await uploadAFile(audioFile).then((audioRes) => {
+      console.log(audioRes)
         audioRes === "ENOTFOUND"? isError = true: "";
       details.audio = audioRes.url;
     });
@@ -19,10 +20,10 @@ module.exports.sendMsg = async (req, res) => {
           message: "Network error: please check your connection",
           success: false,
         }):
-        saveMsg(details).then((saveRes) => {
+        saveMsg(details).then((saveRes) =>{
           res
             .status(saveRes.status)
-            .json({ message: saveRes.message, success: saveRes.success });
+            .json({ message: saveRes.message, success: saveRes.success, data: saveRes.data });
         });
 
   }

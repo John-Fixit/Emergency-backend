@@ -1,14 +1,15 @@
+require('dotenv').config();
 module.exports = {
     AT:{
-        apiKey: 'xxxxxxxxxxxxxxxxxxxxxxx',
-        username: 'xxxxxxx',
+        apiKey: process.env.AT_API_KEY,
+        username: process.env.AT_USERNAME,
         format: 'json'
     },
     pusher:{
-       appId: 'xxxxxx',
-       key: 'xxxxxxxxxxxxxxxx',
-       secret: "xxxxxxxxxxxxxx",
-       cluster: "xx",
+       appId: process.env.APP_ID,
+       key: process.env.KEY,
+       secret: process.env.SECRET,
+       cluster: process.env.CLUSTER,
        encrypted: true
     }
    }
