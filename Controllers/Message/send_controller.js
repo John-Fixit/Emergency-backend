@@ -1,4 +1,5 @@
 const { messageModel } = require("../../Models/messagesModel");
+const { response } = require("../../SuggestedResponses/response");
 const { uploadVFile, uploadAFile } = require("../FileUpload/uploadFile");
 
 module.exports.sendMsg = async (req, res) => {
@@ -22,7 +23,7 @@ module.exports.sendMsg = async (req, res) => {
         saveMsg(details).then((saveRes) =>{
           res
             .status(saveRes.status)
-            .json({ message: saveRes.message, success: saveRes.success, data: saveRes.data });
+            .json({ message: saveRes.message, success: saveRes.success, data: saveRes.data, suggestedMeasure: saveRes.suggestedMeasure });
         });
 
   }
@@ -30,7 +31,7 @@ module.exports.sendMsg = async (req, res) => {
     saveMsg({ category, text, location,  }).then((saveRes) => {
       res
         .status(saveRes.status)
-        .json({ message: saveRes.message, success: saveRes.success, data: saveRes.data });
+        .json({ message: saveRes.message, success: saveRes.success, data: saveRes.data, suggestedMeasure: saveRes.suggestedMeasure });
     });
   }
 };
@@ -45,7 +46,7 @@ const saveMsg = (data) => {
         success: true,
         data,
         suggestedMeasure:
-          "This will be writing according to the cateory of the emergency",
+        category==='Fire'? response.fire: category==='Road Accident'? response.roadAccident: category==='Robbery'? response.robbery: category==='Riot'? response.riot: category==='Medical'&& response.medical,
         status: 200,
       };
     })

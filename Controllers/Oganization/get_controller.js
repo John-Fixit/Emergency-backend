@@ -1,5 +1,5 @@
 const { orgModel } = require('../../Models/orgModel');
-const {StatusCodes} = require('http-status-codes')
+const {StatusCodes} = require('http-status-codes');
 module.exports.getOrgDetail=(req, res)=>{
     const id = req.params.id;
     orgModel.find({id}, (err, data)=>{
