@@ -8,15 +8,15 @@ const bodyParser = require("body-parser");
 const { json } = require("express");
 const socket = require("socket.io");
 const { respondRouter } = require("./Routes/Message/respondRoute");
-const Pusher = require('pusher')
-const credentials = require('./Controllers/USSD/cred')
-const africastalking = require('africastalking')(credentials.AT)
+// const Pusher = require('pusher')
+// const credentials = require('./Controllers/USSD/cred')
+// const africastalking = require('africastalking')(credentials.AT)
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(json({ limit: "100mb" }));
 app.use(cors({ origin: "*" }));
-app.get("/", function (req, res) {
-  res.status(200).json({ message: "Hello world", status: true });
-});
+// app.get("/", function (req, res) {
+//   res.status(200).json({ message: "Hello world", status: true });
+// });
 // const pusher = new Pusher(credentials.pusher)
 // var webURL = 'http://foodigo.com/menu'
 // var welcomeMsg = `CON Hello and welcome to Emergency notification system!
