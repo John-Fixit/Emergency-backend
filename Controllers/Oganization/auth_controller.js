@@ -2,12 +2,10 @@ const { orgModel } = require("../../Models/orgModel");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 module.exports.addOrg = (req, res) => {
-  console.log(req.body);
   const { name, email, mobile, category, password } = req.body;
   orgModel
     .create({ name, email, mobile, password, category })
     .then((data) => {
-      console.log(data);
       res.status(200).json({
         message: "Your Organization has been created successfully",
         success: true,

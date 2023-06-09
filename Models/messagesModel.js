@@ -43,8 +43,9 @@ const respondedSchema = new mongoose.Schema(
         messageCategory: {
             type: String
         },
-        responderOrgId: {
-            type: mongoose.Schema.Types.ObjectId
+        responder: {
+            id: mongoose.Schema.Types.ObjectId,
+            orgName: String
         }
     },
     { timestamps: true }

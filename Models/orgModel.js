@@ -28,7 +28,7 @@ const orgSchema = new mongoose.Schema({
         default: ''
     },
     category: {
-        type: String,
+        type: Array,
         require: true
     },
     password: {
