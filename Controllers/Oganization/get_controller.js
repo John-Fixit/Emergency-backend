@@ -18,6 +18,7 @@ module.exports.getAllOrg=(req, res)=>{
             res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({message: 'Unexpected error! please check your connection', success: false});
         }
         else{
+            console.log(data);
             res.status(StatusCodes.OK).json({message:'successfull', success: true, result: data});
         }
     })
