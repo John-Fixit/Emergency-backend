@@ -5,8 +5,9 @@ const { loginMiddleWare } = require("../../Middlewares/loginEmailMiddleware");
 const { getOrgDetail, getAllOrg } = require("../../Controllers/Oganization/get_controller");
 const { checkEmailMiddleware } = require("../../Middlewares/checkEmailMiddleware");
 const { updateOrgDetail } = require("../../Controllers/Oganization/updateController");
+const { validateOrgEmail } = require("../../Middlewares/validateOrgEmail");
 
-orgRoute.post("/addOrg", addOrg)
+orgRoute.post("/addOrg", validateOrgEmail, addOrg)
 orgRoute.post("/login", loginMiddleWare, login);
 orgRoute.get('/authorize', authorize)
 orgRoute.get('/profile/:id', getOrgDetail)
