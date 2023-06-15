@@ -14,7 +14,7 @@ module.exports.addOrg = (req, res) => {
     .catch((err) => {
       if (err.code === 11000) {
         res.status(409).json({
-          message: `Name or Email of the Organization has already existed`,
+          message: `Name or Email of the Organization already exist`,
           success: false,
         });
       } else {
