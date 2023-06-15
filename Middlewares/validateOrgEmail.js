@@ -1,15 +1,13 @@
 const dns = require("dns");
 module.exports.validateOrgEmail=(req, res, next)=>{
     isOrganizationEmail(req.body.email).then((result)=>{
-        console.log(result);
         console.log(`${req.body.email} is an organization email.`);
         if(result){
             next();
         }
     })
     .catch((error)=>{
-      console.error(`${req.body.email} is not an organization email. Reason: ${error}`);
-        res.status(400).json({message: `${req?.body?.email} is not an organization email.`, success: false});
+        res.status(400).json({message: `This ${req?.body?.email} is not an organization email.`, success: false});
     })
 }
 

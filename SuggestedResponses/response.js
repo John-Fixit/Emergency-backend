@@ -22,11 +22,11 @@ module.exports.response= {
         'Do not argue with the Robber',
         'Do not use weapon against Robber',
         'Keep calm',
-        "Follow the robber's commandbefore the agency arrived",
+        "Follow the robber's command before the agency arrives",
         'Do not be a hero',
     ],
     riot: [
-        'Stay away from doors and windowa',
+        'Stay away from doors and windows',
         'Evacuate the building or other areas'
     ]
 }
